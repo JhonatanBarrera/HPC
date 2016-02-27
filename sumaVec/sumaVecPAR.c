@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <cuda.h>
@@ -26,10 +25,7 @@ __global__ void sumarVector(int *suma, int *vctr1, int *vctr2){
 int main() {
     clock_t t_ini, t_fin;
     double secs;
-  int i;
- 
- 
-   
+    
     int *suma;
     int *vctr1;
     int *vctr2;
@@ -53,24 +49,19 @@ int main() {
     cudaMalloc((void**) &d_vctr1, n * sizeof(int));
     cudaMalloc((void**) &d_vctr2, n * sizeof(int));
   
-    float blockSize = 32.0;
-    float threadSize = ceil(n/blockSize);
+    float blockSize = 1024.0;
+    float dimGrid = ceil(n/blockSize);
   
-    for (i=0;i<20;i++)
-    {
     t_ini = clock();
     cudaMemcpy(d_vctr1, vctr1, n * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_vctr2, vctr2, n * sizeof(int), cudaMemcpyHostToDevice);
    
-    sumarVector<<<blockSize,threadSize>>>(d_suma,d_vctr1,d_vctr2);
+    sumarVector<<<dimGrid,blockSize>>>(d_suma,d_vctr1,d_vctr2);
     cudaMemcpy(suma, d_suma, n  * sizeof(int), cudaMemcpyDeviceToHost);
     t_fin = clock();
    
     secs = (double)(t_fin - t_ini);
     printf("%f\n", secs / CLOCKS_PER_SEC);
-    }
- 
-    //imprimir(suma);
    
     free(suma);
     free(vctr1);
@@ -79,7 +70,6 @@ int main() {
     cudaFree(d_suma);
     cudaFree(d_vctr1);
     cudaFree(d_vctr2);
-   
    
     return 0;
 }
