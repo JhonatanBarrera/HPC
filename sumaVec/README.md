@@ -40,7 +40,7 @@ Datos | _Ts_ | _Tp_
 75000|	0,0002084|	0,00019745
 85000|	0,00026175|	0,00021925
 95000|	0,0002774|	0,00024085  
-Tabla 2. Tiempos de ejecucion para datos entre 5000 y 95000  
+Tabla 2. Tiempos de ejecucion para datos entre 5000 y 95000
 
 ![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles2_sumVec.PNG "Tiempo de Ejecucion - Miles")  
 Grafica 2. Zoom de tiempo de ejecucion para la resolucion de suma de vectores. _CPU_ vs _GPU_.  
