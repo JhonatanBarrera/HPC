@@ -5,7 +5,7 @@ En este ejercicio se pretende calcular el tiempo de ejecucion de dos vectores co
 Para ambos algoritmos se promediara el tiempo de ejecucion con diferentes tamaños de vectores a partir de 20 muestras.
 
 Datos| _Ts_| _Tp_
--|-|-
+-----|-----|------
 15000|	0,00003745|	0,0000711
 35000|	0,0000872|	0,00010775
 55000|	0,00013395|	0,0001513
@@ -20,12 +20,15 @@ Datos| _Ts_| _Tp_
 450000|	0,00110695|	0,00088275
 500000|	0,00118585|	0,0009573
 550000|	0,00123735|	0,0010328
-600000|	0,00144125|	0,0011103 
+600000|	0,00144125|	0,0011103
+Tabla 1. Tiempos de ejecucion para datos desde 15000 hasta 600000.  
 
-![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles1_sumVec.PNG "Tiempo de Ejecucion - Miles") 
+![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles1_sumVec.PNG "Tiempo de Ejecucion - Miles")  
+
+En la imagen se observa como para vectores pequeños el algoritmo secuencial toma menor tiempo en resolver el problema de suma de vectores.
 
 Datos | _Ts_ | _Tp_  
--|-|-
+------|------|------
 5000|	0,0000123|	0,00004105
 15000|	0,00003745|	0,0000711
 25000|	0,0000614|	0,00008515
@@ -35,12 +38,12 @@ Datos | _Ts_ | _Tp_
 65000|	0,0001633|	0,00017585
 75000|	0,0002084|	0,00019745
 85000|	0,00026175|	0,00021925
-95000|	0,0002774|	0,00024085
-
+95000|	0,0002774|	0,00024085  
+  
 ![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles2_sumVec.PNG "Tiempo de Ejecucion - Miles")  
-
+  
 Datos| _Ts_| _Tp_
--|-|-
+-----|-----|------
 5000000|	0,01175545|	0,00879755
 10000000|	0,0234773|	0,0171722
 15000000|	0,03544205|	0,02587415
@@ -53,12 +56,12 @@ Datos| _Ts_| _Tp_
 50000000|	0,1181521|	0,0853347
 55000000|	0,12966305|	0,09338155
 60000000|	0,1414178|	0,1023932
-65000000|	0,15392695|	0,11050015
-
+65000000|	0,15392695|	0,11050015  
+  
 ![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_millones_sumVec.PNG "Tiempo de Ejecucion - Millones")  
-
+  
 Tiempo| Aceleracion
--|-
+------|-------------
 300000|	1,184797147
 5000000|	1,336218606
 10000000|	1,367169029
@@ -72,6 +75,6 @@ Tiempo| Aceleracion
 50000000|	1,384572747
 55000000|	1,38852964
 60000000|	1,381124918
-65000000|	1,393002181
-
+65000000|	1,393002181  
+  
 ![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Aceleracion.PNG "Aceleracion")
