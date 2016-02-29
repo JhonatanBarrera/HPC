@@ -21,11 +21,11 @@ Datos| _Ts_| _Tp_
 500000|	0,00118585|	0,0009573
 550000|	0,00123735|	0,0010328
 600000|	0,00144125|	0,0011103
-Tabla 1. Tiempos de ejecucion para datos desde 15000 hasta 600000.  
+Tabla 1. Tiempos de ejecucion para datos entre 15000 y 600000.  
 
-![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles1_sumVec.PNG "Tiempo de Ejecucion - Miles")  
+![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles1_sumVec.PNG "Tiempo de Ejecucion - Miles")  Grafica 1. Tiempo de ejecucion para la resolucion de suma de vectores con miles de datos. _CPU_ vs _GPU_.  
 
-En la imagen se observa como para vectores pequeños el algoritmo secuencial toma menor tiempo en resolver el problema de suma de vectores.
+En la imagen se observa como para vectores pequeños la _CPU_ toma menor tiempo en resolver el problema de suma de vectores, sin embargo se puede ver que rapidamente la _GPU_ empieza a resolver de manera mas rapida este problema, podemos ver esto en la Grafica 2. Se observa ademas que la ejecucion paralela se matiene de manera mas uniforme que la secuencial.
 
 Datos | _Ts_ | _Tp_  
 ------|------|------
@@ -39,8 +39,9 @@ Datos | _Ts_ | _Tp_
 75000|	0,0002084|	0,00019745
 85000|	0,00026175|	0,00021925
 95000|	0,0002774|	0,00024085  
+Tabla 2. Tiempos de ejecucion para datos entre 5000 y 95000
   
-![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles2_sumVec.PNG "Tiempo de Ejecucion - Miles")  
+![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_miles2_sumVec.PNG "Tiempo de Ejecucion - Miles")  Grafica 2. Zoom de tiempo de ejecucion para la resolucion de suma de vectores. _CPU_ vs _GPU_.  
   
 Datos| _Ts_| _Tp_
 -----|-----|------
@@ -57,8 +58,11 @@ Datos| _Ts_| _Tp_
 55000000|	0,12966305|	0,09338155
 60000000|	0,1414178|	0,1023932
 65000000|	0,15392695|	0,11050015  
+Tabla 3. Tiempos de ejecucion para datos entre 5000000 y 65000000
   
-![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_millones_sumVec.PNG "Tiempo de Ejecucion - Millones")  
+![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Tiempo_millones_sumVec.PNG "Tiempo de Ejecucion - Millones")  Grafica 3. Tiempo de ejecucion para la resolucion de suma de vectores con millones de datos. _CPU_ vs _GPU_.  
+
+La Grafica 3 nos enseña como la resolucion del problema en _GPU_ va mejorando notablemente a medida que el vector es mas grande.
   
 Tiempo| Aceleracion
 ------|-------------
@@ -76,5 +80,8 @@ Tiempo| Aceleracion
 55000000|	1,38852964
 60000000|	1,381124918
 65000000|	1,393002181  
-  
-![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Aceleracion.PNG "Aceleracion")
+Tabla 4. Aceleracion del algoritmo con el uso de computacion paralela em _GPU_.  
+
+![Suma de Vectores](https://github.com/JhonatanBarrera/HPC/blob/master/sumaVec/img/Aceleracion.PNG "Aceleracion")  Grafica 4. Aceleracion del algoritmo con el uso de computacion paralela em _GPU_.  
+
+Esta ultima grafica enseña la aceleracion del algoritmo que se presenta con el uso de la computacion paralela en la _GPU_, se puede notar que la aceleracion es mayor con vectores pequeños y que al aumentar este tamaño la aceleracion va siendo constante.
