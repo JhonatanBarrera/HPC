@@ -55,7 +55,6 @@ int main()
     
   llenarmat(mtrz1);
   llenarmat(mtrz2);
-  multipliMat(mtrz1, mtrz2, multipli);
 
   t_ini = clock();
   multipliMat(mtrz1, mtrz2, multipli);
