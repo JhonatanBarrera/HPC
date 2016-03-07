@@ -7,7 +7,24 @@
 #define row 1000
 #define col 1000
 
-float llenarmat (float *mtrz)
+__global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
+{
+  int g_row = blockIdx.y*blockDim.y+threadIdx.y;
+  int g_col = blockIdx.x*blockDim.x+threadIdx.x;
+  int multi;
+  
+  if ((g_row < width) && (g_col < width))
+  {
+    multi = 0;
+    for (int k=0; k<width; k++)
+    {
+      multi += mtrz1[g_row*width+k] * mtrz2[k*width+g_col];
+    }
+    multipli[g_row*width+g_col] = multi;
+  }
+}
+
+int llenarmat (int *mtrz)
 {
 	int i, j;
 	
@@ -18,52 +35,52 @@ float llenarmat (float *mtrz)
 	return 0;
 }
 
-_global_ void multipliMat (float *mtrz1, float *mtrz2, float *multipli)
-{
-  
-}
-
 int main()
 {
   clock_t t_ini, t_fin;
   double secs;
     
-  float *multipli;
-  float *mtrz1;
-  float *mtrz2;
+  int *multipli;
+  int *mtrz1;
+  int *mtrz2;
     
   multipli = NULL;
   mtrz1 = NULL;
   mtrz2 = NULL;
     
-  multipli = (float*)malloc(row * col * sizeof(float));
-  mtrz1 = (float*)malloc(row * col * sizeof(float));
-  mtrz2 = (float*)malloc(row * col * sizeof(float));
+  multipli = (int*)malloc(row * col * sizeof(int));
+  mtrz1 = (int*)malloc(row * col * sizeof(int));
+  mtrz2 = (int*)malloc(row * col * sizeof(int));
     
   llenarmat(mtrz1);
   llenarmat(mtrz2);
   
-  float *d_multipli;
-  float *d_mtrz1;
-  float *d_mtrz2;
+  int *d_multipli;
+  int *d_mtrz1;
+  int *d_mtrz2;
 
-  cudaMalloc((void**) &d_multipli, row * col * sizeof(float));
-  cudaMalloc((void**) &d_mtrz1, row * col * sizeof(float));
-  cudaMalloc((void**) &d_mtrz2, row * col * sizeof(float));
+  cudaMalloc((void**) &d_multipli, row * col * sizeof(int));
+  cudaMalloc((void**) &d_mtrz1, row * col * sizeof(int));
+  cudaMalloc((void**) &d_mtrz2, row * col * sizeof(int));
   
-  float blockSize = 1024.0;
-  float dimGrid = ceil((row * col)/blockSize);
+  int blockSize = 32;
+  dim3 dimBlock(blockSize, blockSize, 1);
+  dim3 dimGrid(ceil((row * col)/float(blockSize)), ceil((row * col)/float(blockSize)), 1);
   
   t_ini = clock();
-  cudaMemcpy(d_mtrz1, mtrz1, row * col * sizeof(float), cudaMemcpyHostToDevice);
-  cudaMemcpy(d_vctr2, mtrz2, row * col * sizeof(float), cudaMemcpyHostToDevice);
+  cudaMemcpy(d_mtrz1, mtrz1, row * col * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpy(d_mtrz2, mtrz2, row * col * sizeof(int), cudaMemcpyHostToDevice);
   
-  sumarVector<<<dimGrid,blockSize>>>(d_multipli,mtrz1,mtrz2);
-  cudaMemcpy(multipli, d_multipli, row * col  * sizeof(float), cudaMemcpyDeviceToHost);
+  multipliMat<<<dimGrid,dimBlock>>>(d_multipli,d_mtrz1,d_mtrz2, row);
+  cudaMemcpy(multipli, d_multipli, row * col  * sizeof(int), cudaMemcpyDeviceToHost);
   t_fin = clock();
     
   secs = (double)(t_fin - t_ini);
   printf("%f\n", secs / CLOCKS_PER_SEC);
+  
+  printData(mtrz1, row);
+  printData(mtrz2, row);
+  printData(multipli, row);
     
   free(multipli);
   free(mtrz1);
