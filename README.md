@@ -42,3 +42,4 @@ _S = Ts / Tp_
 Ejercicios propuestos.
 
 * [Suma de dos vectores.](https://github.com/JhonatanBarrera/HPC/tree/master/sumaVec "sumaVec")
+* [Multiplicacion de Matrices.](https://github.com/JhonatanBarrera/HPC/tree/master/multiMat "multiMat")
