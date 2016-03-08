@@ -17,24 +17,23 @@ int llenarmat (int *mtrz)
 	return 0;
 }
 
-int multipliMat (int *mtrz1, int *mtrz2, int *multipli)
+int multipliMat (int *mtrz1, int *mtrz2, int *multipli, int width)
 {
-  int i, j, k;
-  
-  for (i=0;i<row;i++)
-  {
-    for (j=0;j<col;j++)
-    {
-			multipli[i*col+j] = 0;
-      for (k=0; k<col;k++)
-      {
-        multipli[i*col+j] += mtrz1[i*col+k] * mtrz2[k*col+j];
-      }
-    }
-  }
+    int multi;
 
-	return 0;
+    for(int c_row = 0; c_row < width ; ++c_row){
+        for(int c_col = 0; c_col < width ; ++c_col){
+            multi = 0;
+            for(int k = 0; k < width ; ++k){
+                multi += mtrz1[c_row*width+k] * mtrz2[k*width+c_col];
+            }
+            multipli[c_row*width+c_col] = multi;
+        }
+    }
+    return 0;
 }
+
+
 
 int main()
 {
@@ -57,12 +56,18 @@ int main()
   llenarmat(mtrz2);
 
   t_ini = clock();
-  multipliMat(mtrz1, mtrz2, multipli);
+  multipliMat(mtrz1, mtrz2, multipli, col);
   t_fin = clock();
     
   secs = (double)(t_fin - t_ini);
   printf("%f\n", secs / CLOCKS_PER_SEC);
-    
+  
+  
+  printData(mtrz1, col);
+  printData(mtrz2, col);
+  printData(multipli, col);
+  
+  
   free(multipli);
   free(mtrz1);
   free(mtrz2);
