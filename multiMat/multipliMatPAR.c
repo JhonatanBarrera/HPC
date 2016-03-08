@@ -30,7 +30,7 @@ int llenarmat (int *mtrz)
 	
 	for (i=0;i<row;i++)
 		for (j=0;j<col;j++)
-			mtrz[i*col+j] = rand() % 7;
+			mtrz[i*col+j] = rand() % rand() % 7;
 	
 	return 0;
 }
@@ -65,7 +65,7 @@ int main()
   
   int blockSize = 32;
   dim3 dimBlock(blockSize, blockSize, 1);
-  dim3 dimGrid(ceil((row * col)/float(blockSize)), ceil((row * col)/float(blockSize)), 1);
+  dim3 dimGrid(ceil(col/float(blockSize)), ceil(col/float(blockSize)), 1);
   
   t_ini = clock();
   cudaMemcpy(d_mtrz1, mtrz1, row * col * sizeof(int), cudaMemcpyHostToDevice);
