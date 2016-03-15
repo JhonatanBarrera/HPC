@@ -25,7 +25,7 @@ __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
   int multi;
   
   int i, j;
-  for (i=0;i<(g_col/TILE_WIDTH);i++)
+  for (i=0;i<(width/TILE_WIDTH);i++)
   {
 	mtrz_tile1[ty][tx] = mtrz1[g_row*width + i*TILE_WIDTH + tx];
 	mtrz_tile2[ty][tx] = mtrz2[(i*TILE_WIDTH + ty) * width + g_col];
