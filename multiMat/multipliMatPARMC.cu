@@ -5,8 +5,8 @@
 #include <time.h>
 #include <fstream>
 
-#define row 500
-#define col 500
+#define row 1920
+#define col 1920
 #define TILE_WIDTH 32
 
 __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
