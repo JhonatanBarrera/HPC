@@ -5,8 +5,8 @@
 #include <time.h>
 #include <fstream>
 
-#define row 1920
-#define col 1920
+#define row 32
+#define col 32
 #define TILE_WIDTH 32
 
 __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
@@ -27,29 +27,28 @@ __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
   int i, j;
   for (i=0;i<(width/TILE_WIDTH);i++)
   {
-	mtrz_tile1[ty][tx] = mtrz1[g_row*width + i*TILE_WIDTH + tx];
-	mtrz_tile2[ty][tx] = mtrz2[(i*TILE_WIDTH + ty) * width + g_col];
-	__syncthreads();
+    mtrz_tile1[ty][tx] = mtrz1[g_row*width + i*TILE_WIDTH + tx];
+    mtrz_tile2[ty][tx] = mtrz2[(i*TILE_WIDTH + ty) * width + g_col];
+    __syncthreads();
 	
-	for (j=0; j<TILE_WIDTH; j++)
-	{
-	  multi += mtrz_tile1[ty][j] * mtrz_tile2[j][tx];
-	}
-	__syncthreads();
+    for (j=0; j<TILE_WIDTH; j++)
+    {
+      multi += mtrz_tile1[ty][j] * mtrz_tile2[j][tx];
+    }
+    __syncthreads();
   }
   multipli[g_row*width+g_col] = multi;
-  
 }
 
 int llenarmat (int *mtrz)
 {
-	int i, j;
-	
-	for (i=0;i<row;i++)
-		for (j=0;j<col;j++)
-			mtrz[i*col+j] = rand() % 7;
-	
-	return 0;
+  int i, j;
+
+  for (i=0;i<row;i++)
+    for (j=0;j<col;j++)
+      mtrz[i*col+j] = rand() % 7;
+
+  return 0;
 }
 
 int main()
@@ -95,9 +94,8 @@ int main()
   t_fin = clock();
     
   secs = (double)(t_fin - t_ini);
-    printf("%f\n", secs / CLOCKS_PER_SEC);}
+  printf("%f\n", secs / CLOCKS_PER_SEC);}
 
-    
   free(multipli);
   free(mtrz1);
   free(mtrz2);
