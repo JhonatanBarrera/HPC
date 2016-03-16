@@ -46,7 +46,7 @@ int llenarmat (int *mtrz)
 
   for (i=0;i<row;i++)
     for (j=0;j<col;j++)
-      mtrz[i*col+j] = rand() % 7;
+      mtrz[i*col+j] = 7;
 
   return 0;
 }
