@@ -3,8 +3,8 @@
 #include <malloc.h>
 #include <time.h>
 
-#define row 1000
-#define col 1000
+#define row 32
+#define col 32
 
 int llenarmat (int *mtrz)
 {
@@ -12,19 +12,20 @@ int llenarmat (int *mtrz)
 	
 	for (i=0;i<row;i++)
 		for (j=0;j<col;j++)
-			mtrz[i*col+j] = rand() % 7;
+			mtrz[i*col+j] = 7;
 	
 	return 0;
 }
 
 int multipliMat (int *mtrz1, int *mtrz2, int *multipli, int width)
 {
-    int multi;
+    int multi, k;
+    int c_row, c_col;
 
-    for(int c_row = 0; c_row < width ; ++c_row){
-        for(int c_col = 0; c_col < width ; ++c_col){
+    for(c_row=0;c_row<width;c_row++){
+        for(c_col=0;c_col<width;c_col++){
             multi = 0;
-            for(int k = 0; k < width ; ++k){
+            for(k=0;k<width;k++){
                 multi += mtrz1[c_row*width+k] * mtrz2[k*width+c_col];
             }
             multipli[c_row*width+c_col] = multi;
@@ -33,12 +34,10 @@ int multipliMat (int *mtrz1, int *mtrz2, int *multipli, int width)
     return 0;
 }
 
-
-
 int main()
 {
-	clock_t t_ini, t_fin;
-    double secs;
+  clock_t t_ini, t_fin;
+  double secs;
     
   int *multipli;
   int *mtrz1;
@@ -61,13 +60,7 @@ int main()
     
   secs = (double)(t_fin - t_ini);
   printf("%f\n", secs / CLOCKS_PER_SEC);
-  
-  
-  printData(mtrz1, col);
-  printData(mtrz2, col);
-  printData(multipli, col);
-  
-  
+ 
   free(multipli);
   free(mtrz1);
   free(mtrz2);
