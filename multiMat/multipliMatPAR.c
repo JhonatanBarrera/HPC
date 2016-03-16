@@ -4,8 +4,8 @@
 #include <malloc.h>
 #include <time.h>
 
-#define row 1000
-#define col 1000
+#define row 32
+#define col 32
 
 __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
 {
@@ -13,7 +13,7 @@ __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
   int g_col = blockIdx.x*blockDim.x+threadIdx.x;
   int multi;
   
-  if ((g_row < width) && (g_col < width))
+  if ((g_row<width) && (g_col<width))
   {
     multi = 0;
     for (int k=0; k<width; k++)
@@ -26,13 +26,13 @@ __global__ void multipliMat (int *multipli, int *mtrz1, int *mtrz2, int width)
 
 int llenarmat (int *mtrz)
 {
-	int i, j;
+  int i, j;
 	
-	for (i=0;i<row;i++)
-		for (j=0;j<col;j++)
-			mtrz[i*col+j] = rand() % rand() % 7;
-	
-	return 0;
+  for (i=0;i<row;i++)
+    for (j=0;j<col;j++)
+      mtrz[i*col+j] = 7;
+  
+  return 0;
 }
 
 int main()
@@ -77,10 +77,6 @@ int main()
     
   secs = (double)(t_fin - t_ini);
   printf("%f\n", secs / CLOCKS_PER_SEC);
-  
-  printData(mtrz1, row);
-  printData(mtrz2, row);
-  printData(multipli, row);
     
   free(multipli);
   free(mtrz1);
