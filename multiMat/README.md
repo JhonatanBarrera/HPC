@@ -40,7 +40,7 @@ Matriz|	Secuencial|	Paralelo|	Mem. Com.
 1920 x 1920|	33,45206495|	0,1452707|	0,04426265
 Tabla 1. Tiempo de ejecución (en segundos) para Matrices de 96x96 hasta 1920x1920 para cada uno de los algoritmos propuestos.
 
-![Multiplicación de Matrices - Secuencial](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_sec_ten.PNG "Tiempo de Ejecución - Secuencial")  
+![Multiplicación de Matrices - Secuencial](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_sec_pot.PNG "Tiempo de Ejecución - Secuencial")  
 Gráfica 1. Tiempo de ejecución para el algoritmo secuencial.  
 
 ![Multiplicación de Matrices - Paralelo](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_par_ten.PNG "Tiempo de Ejecución - Paralelo")  
