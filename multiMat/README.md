@@ -78,3 +78,4 @@ Gráfica 3. Aceleración. S vs P (Secuencial vs Paralelo), S vs MC (Secuencial v
 ## Conclusiones
 
 * Es notorio que los tiempos de ejecucion de los algoritmos en paralelo rebazan por mucho la ejecucion secuencial. Para todos los DataSet se obtiene mejores tiempos con los algoritmos paralelos desde el inicio de la toma de datos.
+* 
