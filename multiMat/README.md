@@ -47,7 +47,7 @@ Tabla 1. Tiempo de ejecución (en segundos) para Matrices de 96x96 hasta 1920x19
 ![Multiplicación de Matrices - Tiempo Secuencial](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_sec_pol_f.PNG "Tiempo de Ejecución - Secuencial")  
 Gráfica 1. Tiempo de ejecución para el algoritmo secuencial.  
 
-![Multiplicación de Matrices - Tiempo Paralelo](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_par_pol.PNG "Tiempo de Ejecución - Paralelo")  
+![Multiplicación de Matrices - Tiempo Paralelo](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_par_pol_f.PNG "Tiempo de Ejecución - Paralelo")  
 Gráfica 2. Tiempo de ejecución para algoritmos paralelos.  
 
 ##### Aceleración  
@@ -80,7 +80,7 @@ Tabla 2. Aceleración obtenida con el uso de los algoritmos paralelos respecto a
 Gráfica 3. Aceleración. S vs P (Secuencial vs Paralelo), S vs MC (Secuencial vs Memoria Compartida + Tiling)  
 
 ![Multiplicación de Matrices - Aceleración entre paralelos](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/aceleration_par_log_f.PNG "Aceleración entre paralelos")  
-Gráfica 3. Aceleración a partir de la optimización del algoritmo con TILING respecto al algoritmo "ingenuo" de paralelización.
+Gráfica 4. Aceleración a partir de la optimización del algoritmo con TILING respecto al algoritmo "ingenuo" de paralelización.
 
 ## Conclusiones
 
