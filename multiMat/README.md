@@ -14,9 +14,13 @@ Se desarrollara este análisis sobre una maquina con las siguientes característ
 Para el análisis de estos algoritmos se tomaran el tiempo de ejecución para DataSet de matrices desde 96x96 hasta 1920x192, el incremento entre cada DataSet es de 96x96.   
 Con cada DataSet se obtendrán 20 muestras de tiempo que serán promediadas para tratar de disminuir el ruido que se pueda generar.
 
+Recordar que en el algoritmo de tiling y memoria compartida, se hace uso de tiles que serán de 32x32, por esto mismo se toman matrices cuadradas que sean factores de este valor.
+
+
+
 ##### Tiempo  
 
-Matriz|	Secuencial|	Paralelo|	Mem. Com.
+Matriz|	Tiempo CPU|	Tiempo GPU|	Tiempo GPU MC
 -----|-----|-----|-----
 96 x 96|		0,00231735|		0,0000816|	0,00006535
 192 x 192|		0,01957595|		0,00027805|	0,00015825
@@ -40,42 +44,49 @@ Matriz|	Secuencial|	Paralelo|	Mem. Com.
 1920 x 1920|	33,45206495|	0,1452707|	0,04426265
 Tabla 1. Tiempo de ejecución (en segundos) para Matrices de 96x96 hasta 1920x1920 para cada uno de los algoritmos propuestos.
 
-![Multiplicación de Matrices - Secuencial](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_sec_pot.PNG "Tiempo de Ejecución - Secuencial")  
+![Multiplicación de Matrices - Tiempo Secuencial](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_sec_pol_f.PNG "Tiempo de Ejecución - Secuencial")  
 Gráfica 1. Tiempo de ejecución para el algoritmo secuencial.  
 
-![Multiplicación de Matrices - Paralelo](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_par_ten.PNG "Tiempo de Ejecución - Paralelo")  
+![Multiplicación de Matrices - Tiempo Paralelo](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/time_par_pol.PNG "Tiempo de Ejecución - Paralelo")  
 Gráfica 2. Tiempo de ejecución para algoritmos paralelos.  
 
 ##### Aceleración  
 
-Datos|	S vs P|	S vs MC
------|-----|-----
-96|		28,39889706|	35,46059679
-192|	70,40442366|	123,7026856
-288|	89,73999739|	184,5303497
-384|	117,8938958|	277,9219314
-480|	110,6433635|	286,1363344
-576|	121,7090951|	338,2583602
-672|	121,2130198|	353,9239108
-768|	167,5068432|	482,070377
-864|	120,5204545|	374,4357342
-960|	144,4251652|	424,5817085
-1056|	143,9905496|	452,0632317
-1152|	164,6409095|	444,2058749
-1248|	155,8879613|	493,6855028
-1344|	166,5161759|	512,3678543
-1440|	162,4428346|	531,2894662
-1536|	202,1756581|	638,9756474
-1632|	182,9876464|	596,7620901
-1728|	212,0767613|	690,1299673
-1824|	187,7054095|	621,1872475
-1920|	230,2739985|	755,7628147
-Tabla 2. Aceleración obtenida con el uso de los algoritmos paralelos respecto al secuencial.  
+Datos|	Paralelo (P)|	Tiling + MC (MC)| P vs MC
+-----|-----|-----|-----
+96|28,39889706|35,46059679|1,248661056
+192|70,40442366|123,7026856|1,757030016
+288|89,73999739|184,5303497|2,056277636
+384|117,8938958|277,9219314|2,357390343
+480|110,6433635|286,1363344|2,586113848
+576|121,7090951|338,2583602|2,779236507
+672|121,2130198|353,9239108|2,919850618
+768|167,5068432|482,070377|2,877914525
+864|120,5204545|374,4357342|3,106823118
+960|144,4251652|424,5817085|2,939804209
+1056|143,9905496|452,0632317|3,139534038
+1152|164,6409095|444,2058749|2,698028554
+1248|155,8879613|493,6855028|3,166925135
+1344|166,5161759|512,3678543|3,076985474
+1440|162,4428346|531,2894662|3,270624201
+1536|202,1756581|638,9756474|3,160497429
+1632|182,9876464|596,7620901|3,261215179
+1728|212,0767613|690,1299673|3,254151766
+1824|187,7054095|621,1872475|3,309373178
+1920|230,2739985|755,7628147|3,282015424
+Tabla 2. Aceleración obtenida con el uso de los algoritmos paralelos respecto al secuencial, la ultima columna representa la aceleración respecto a los algoritmos paralelos.  
 
-![Multiplicación de Matrices - Aceleración](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/aceleration_ten.PNG "Aceleración")  
+![Multiplicación de Matrices - Aceleración respecto a secuencial](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/aceleration_parsec_pol_f.PNG "Aceleración a partir de algoritmos paralelos")  
 Gráfica 3. Aceleración. S vs P (Secuencial vs Paralelo), S vs MC (Secuencial vs Memoria Compartida + Tiling)  
+
+![Multiplicación de Matrices - Aceleración entre paralelos](https://github.com/JhonatanBarrera/HPC/blob/master/multiMat/img/aceleration_par_log_f.PNG "Aceleración entre paralelos")  
+Gráfica 3. Aceleración a partir de la optimización del algoritmo con TILING respecto al algoritmo "ingenuo" de paralelización.
 
 ## Conclusiones
 
-* Es notorio que los tiempos de ejecucion de los algoritmos en paralelo rebazan por mucho la ejecucion secuencial. Para todos los DataSet se obtiene mejores tiempos con los algoritmos paralelos desde el inicio de la toma de datos.
-* 
+* Es notorio que los tiempos de ejecución de los algoritmos en paralelo rebozan por mucho la ejecución secuencial. Para todos los DataSet se obtiene mejores tiempos con los algoritmos paralelos desde el inicio de la toma de datos.
+* Las lineas de tendencia que mejor se ajustan a los datos para todos los casos son polinomios no necesariamente del mismo orden. Al usar lineas de tendencia polinómicas se debe tener en cuenta los coeficientes de correlación, la varianza y en casos críticos los intervalos de confianza de los datos para establecer cual es el orden del polinomio que mejor se ajusta a los datos.
+* El algoritmo de paralelización "ingenuo" para la multiplicación de matrices resulta ser muy eficiente respecto a la ejecución secuencial en CPU, sin embargo obtener datos desde memoria global representa un retraso que puede o no ser innecesario.
+* El acceso a memoria compartida y el uso de la técnica de tiling nos permite obtener resultados mas eficientes, esto debido a que estamos aprovechando de mejor manera los recursos de la GPU, optimizando de igual manera el algoritmo de paralelización.
+* Se evidencia que al obtener tiempos de ejecución mas pequeños con la técnica de tiling y memoria compartida la aceleración para este algoritmo es mayor.
+* La diferencia en la aceleración entre estos algoritmos de paralelización parece que en algún momento tiende a un valor fijo. Se debe recordar que la maquina usada para la toma de los datos no es de uso especifico y esto puede introducir ruido en los tiempos de ejecución.
