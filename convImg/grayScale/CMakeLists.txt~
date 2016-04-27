@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( loadImg2 )
+find_package( OpenCV REQUIRED )
+add_executable( loadImg2 loadImg2.cpp )
+target_link_libraries( loadImg2 ${OpenCV_LIBS} )
