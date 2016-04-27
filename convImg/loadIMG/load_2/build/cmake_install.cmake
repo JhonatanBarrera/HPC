@@ -1,4 +1,4 @@
-# Install script for directory: /home/hera_hpccourse/3mer/HPC/convImg
+# Install script for directory: /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_2
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/hera_hpccourse/3mer/HPC/convImg/build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_2/build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/hera_hpccourse/3mer/HPC/convImg/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_2/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

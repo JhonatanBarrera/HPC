@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/home/hera_hpccourse/3mer/HPC/convImg/loadImg.c" "/home/hera_hpccourse/3mer/HPC/convImg/build/CMakeFiles/loadImg.dir/loadImg.c.o"
+  "/home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/loadImg.c" "/home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build/CMakeFiles/loadImg.dir/loadImg.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")
 

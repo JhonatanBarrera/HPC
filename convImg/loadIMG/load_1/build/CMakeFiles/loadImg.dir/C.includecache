@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/hera_hpccourse/3mer/HPC/convImg/loadImg.c
+/home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/loadImg.c
 opencv/highgui.h
 -
 

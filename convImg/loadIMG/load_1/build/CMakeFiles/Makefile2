@@ -50,10 +50,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hera_hpccourse/3mer/HPC/convImg
+CMAKE_SOURCE_DIR = /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hera_hpccourse/3mer/HPC/convImg/build
+CMAKE_BINARY_DIR = /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/loadImg.dir
@@ -62,7 +62,7 @@ CMAKE_BINARY_DIR = /home/hera_hpccourse/3mer/HPC/convImg/build
 CMakeFiles/loadImg.dir/all:
 	$(MAKE) -f CMakeFiles/loadImg.dir/build.make CMakeFiles/loadImg.dir/depend
 	$(MAKE) -f CMakeFiles/loadImg.dir/build.make CMakeFiles/loadImg.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hera_hpccourse/3mer/HPC/convImg/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build/CMakeFiles  1
 	@echo "Built target loadImg"
 .PHONY : CMakeFiles/loadImg.dir/all
 
@@ -72,9 +72,9 @@ all: CMakeFiles/loadImg.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/loadImg.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hera_hpccourse/3mer/HPC/convImg/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/loadImg.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hera_hpccourse/3mer/HPC/convImg/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build/CMakeFiles 0
 .PHONY : CMakeFiles/loadImg.dir/rule
 
 # Convenience name for target.

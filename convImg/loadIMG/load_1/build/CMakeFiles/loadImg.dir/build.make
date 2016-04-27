@@ -38,10 +38,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hera_hpccourse/3mer/HPC/convImg
+CMAKE_SOURCE_DIR = /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hera_hpccourse/3mer/HPC/convImg/build
+CMAKE_BINARY_DIR = /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/loadImg.dir/depend.make
@@ -54,17 +54,17 @@ include CMakeFiles/loadImg.dir/flags.make
 
 CMakeFiles/loadImg.dir/loadImg.c.o: CMakeFiles/loadImg.dir/flags.make
 CMakeFiles/loadImg.dir/loadImg.c.o: ../loadImg.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hera_hpccourse/3mer/HPC/convImg/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/loadImg.dir/loadImg.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/loadImg.dir/loadImg.c.o   -c /home/hera_hpccourse/3mer/HPC/convImg/loadImg.c
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/loadImg.dir/loadImg.c.o   -c /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/loadImg.c
 
 CMakeFiles/loadImg.dir/loadImg.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/loadImg.dir/loadImg.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/hera_hpccourse/3mer/HPC/convImg/loadImg.c > CMakeFiles/loadImg.dir/loadImg.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/loadImg.c > CMakeFiles/loadImg.dir/loadImg.c.i
 
 CMakeFiles/loadImg.dir/loadImg.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/loadImg.dir/loadImg.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/hera_hpccourse/3mer/HPC/convImg/loadImg.c -o CMakeFiles/loadImg.dir/loadImg.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/loadImg.c -o CMakeFiles/loadImg.dir/loadImg.c.s
 
 CMakeFiles/loadImg.dir/loadImg.c.o.requires:
 .PHONY : CMakeFiles/loadImg.dir/loadImg.c.o.requires
@@ -144,6 +144,6 @@ CMakeFiles/loadImg.dir/clean:
 .PHONY : CMakeFiles/loadImg.dir/clean
 
 CMakeFiles/loadImg.dir/depend:
-	cd /home/hera_hpccourse/3mer/HPC/convImg/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hera_hpccourse/3mer/HPC/convImg /home/hera_hpccourse/3mer/HPC/convImg /home/hera_hpccourse/3mer/HPC/convImg/build /home/hera_hpccourse/3mer/HPC/convImg/build /home/hera_hpccourse/3mer/HPC/convImg/build/CMakeFiles/loadImg.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1 /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1 /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build /home/hera_hpccourse/3mer/HPC/convImg/loadIMG/load_1/build/CMakeFiles/loadImg.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/loadImg.dir/depend
 
