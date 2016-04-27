@@ -289,6 +289,12 @@ imgGrayScale_BINARY_DIR:STATIC=/home/hera_hpccourse/3mer/HPC/convImg/grayScale/b
 //Value Computed by CMake
 imgGrayScale_SOURCE_DIR:STATIC=/home/hera_hpccourse/3mer/HPC/convImg/grayScale
 
+//Value Computed by CMake
+imgSovel_BINARY_DIR:STATIC=/home/hera_hpccourse/3mer/HPC/convImg/grayScale/build
+
+//Value Computed by CMake
+imgSovel_SOURCE_DIR:STATIC=/home/hera_hpccourse/3mer/HPC/convImg/grayScale
+
 
 ########################
 # INTERNAL cache entries
