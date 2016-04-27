@@ -18,9 +18,6 @@ int main(int argc, char **argv)
     int sizeCh = sizeof(unsigned char) * width * height * image.channels();;
     int sizeGray = sizeof(unsigned char) * width * height;
 
-		Mat gray_image;
-    gray_image.create(height,width,CV_8UC1);
-    
     Mat gray_image_opencv;
     cvtColor(image, gray_image_opencv, CV_BGR2GRAY);
 		
