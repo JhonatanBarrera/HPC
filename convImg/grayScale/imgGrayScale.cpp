@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     namedWindow("Gray Image OpenCV", WINDOW_NORMAL);
 
     imshow(imageName,image);
-    imshow("Gray Image OpenCV",abs_grad_x);
+    imshow("Gray Image OpenCV", gray_image_opencv);
 
     waitKey(0);
     
