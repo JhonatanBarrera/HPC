@@ -13,14 +13,14 @@ int main(int argc, char **argv)
     
     Size sizeimg = image.size();
   
-    Mat gray_image_opencv;
+    Mat gray_image_opencv, grad_x;
     cvtColor(image, gray_image_opencv, CV_BGR2GRAY);
 		
     namedWindow(imageName, WINDOW_NORMAL);
     namedWindow("Gray Image OpenCV", WINDOW_NORMAL);
 
     imshow(imageName,image);
-    imshow("Gray Image OpenCV",gray_image_opencv);
+    imshow("Gray Image OpenCV",abs_grad_x);
 
     waitKey(0);
     
