@@ -13,10 +13,10 @@ int main(int argc, char **argv)
     
     Size sizeimg = image.size();
     
-    int width = sizeimg.width;
-    int height = sizeimg.height;
-    int sizeCh = sizeof(unsigned char) * width * height * image.channels();;
-    int sizeGray = sizeof(unsigned char) * width * height;
+    //int width = sizeimg.width;
+    //int height = sizeimg.height;
+    //int sizeCh = sizeof(unsigned char) * width * height * image.channels();;
+    //int sizeGray = sizeof(unsigned char) * width * height;
 
     Mat gray_image_opencv;
     cvtColor(image, gray_image_opencv, CV_BGR2GRAY);
