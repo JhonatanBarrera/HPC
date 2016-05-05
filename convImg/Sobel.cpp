@@ -21,11 +21,46 @@ unsigned char img2gray(unsigned char *imgOutput, unsigned char *imgInput, int wi
     return *imgOutput;
 }
 
+unsigned char clamp(int value)
+{
+    if(value < 0)
+        value = 0;
+    else
+        if(value > 255)
+            value = 255;
+    return (unsigned char)value;
+}
+
+unsigned char sobelFilter(unsigned char *imgOutput, unsigned char maskWidth, char *M, unsigned char *imgInput, int width, int height)
+{
+    unsigned int row;
+    unsigned int col;
+
+    int Pvalue = 0;
+
+    int N_start_point_row = row - (maskWidth/2);
+    int N_start_point_col = col - (maskWidth/2);
+
+    for (int i = 0; i < maskWidth; i++)
+    {
+        for (int j = 0; j < maskWidth; j++)
+        {
+            if ((N_start_point_col + j >= 0 && N_start_point_col + j < width) && (N_start_point_row + i >= 0 && N_start_point_row + i < height))
+            {
+                Pvalue += imgOutput[(N_start_point_row + i) * width + (N_start_point_col + j)]
+            }
+        }
+    }
+
+    imgOutput[row * width + col] = clamp(Pvalue);
+}
+
 
 int main(int argc, char **argv)
 {
     char *imageName = argv[1];
     unsigned char *dataRawImage, *imgOutput;
+    unsigned char *sobelOutput;
     
     Mat image;
     image = imread(imageName, 1);
@@ -49,7 +84,8 @@ int main(int argc, char **argv)
     gray_image.data = imgOutput;
     //Sobel(gray_image, grad_x, CV_8UC1, 1, 0, 3, 1, 0, BORDER_DEFAULT);
     //convertScaleAbs(grad_x, abs_grad_x);
-		
+	sobelFilter(unsigned char *imgOutput, unsigned char maskWidth, char *M, unsigned char *imgInput, int width, int height);
+
     namedWindow(imageName, WINDOW_NORMAL);
     namedWindow("Gray Image Secuential", WINDOW_NORMAL);
     //namedWindow("Sobel Image OpenCV", WINDOW_NORMAL);
