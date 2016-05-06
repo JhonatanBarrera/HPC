@@ -7,7 +7,7 @@ using namespace cv;
 #define GREEN 1
 #define BLUE 0
 
-unsigned char img2gray(unsigned char *imgOutput, unsigned char *imgInput, int width, int height)
+void img2gray(unsigned char *imgOutput, unsigned char *imgInput, int width, int height)
 {
 
     for (int row = 0; row < height; row++)
@@ -18,7 +18,7 @@ unsigned char img2gray(unsigned char *imgOutput, unsigned char *imgInput, int wi
         }
     }
     
-    return *imgOutput;
+    //return *imgOutput; // No es necesario retornar ya que es un puntero.
 }
 
 unsigned char clamp(int value)
@@ -31,34 +31,45 @@ unsigned char clamp(int value)
     return (unsigned char)value;
 }
 
-unsigned char sobelFilter(unsigned char *imgOutput, unsigned char maskWidth, char *M, unsigned char *imgInput, int width, int height)
+void sobelFilter(unsigned char *imgOutput, int maskWidth, char *M, unsigned char *imgInput, int width, int height)
 {
-    unsigned int row;
-    unsigned int col;
+    int row;
+    int col;
+    int Pvalue;
 
-    int Pvalue = 0;
+    int N_start_point_row;
+    int N_start_point_col;
 
-    int N_start_point_row = row - (maskWidth/2);
-    int N_start_point_col = col - (maskWidth/2);
 
-    for (int i = 0; i < maskWidth; i++)
+    for (row = 0; row < height; row++)
     {
-        for (int j = 0; j < maskWidth; j++)
+        for (col = 0; col < width; col++)
         {
-            if ((N_start_point_col + j >= 0 && N_start_point_col + j < width) && (N_start_point_row + i >= 0 && N_start_point_row + i < height))
+            Pvalue = 0;
+            N_start_point_row = row - (maskWidth/2);
+            N_start_point_col = col - (maskWidth/2);
+            for (int i = 0; i < maskWidth; i++)
             {
-                Pvalue += imgOutput[(N_start_point_row + i) * width + (N_start_point_col + j)]
+                for (int j = 0; j < maskWidth; j++)
+                {
+                    if ((N_start_point_col + j >= 0 && N_start_point_col + j < width) && (N_start_point_row + i >= 0 && N_start_point_row + i < height))
+                    {
+                        Pvalue += imgOutput[(N_start_point_row + i) * width + (N_start_point_col + j)];
+                    }
+                }
             }
         }
     }
 
     imgOutput[row * width + col] = clamp(Pvalue);
+    //return *imgOutput;  // No es necesario retornar ya que es un puntero.
 }
 
 
 int main(int argc, char **argv)
 {
     char *imageName = argv[1];
+    char M[] = {-1,0,1,-2,0,2,-1,0,1};
     unsigned char *dataRawImage, *imgOutput;
     unsigned char *sobelOutput;
     
@@ -74,6 +85,7 @@ int main(int argc, char **argv)
 
     dataRawImage = (unsigned char*)malloc(size);
     imgOutput = (unsigned char*)malloc(sizeGray);
+    sobelOutput = (unsigned char*)malloc(sizeGray);
 
     dataRawImage = image.data;
 
@@ -82,19 +94,26 @@ int main(int argc, char **argv)
     Mat gray_image, grad_x, abs_grad_x;
     gray_image.create(height,width,CV_8UC1);
     gray_image.data = imgOutput;
-    //Sobel(gray_image, grad_x, CV_8UC1, 1, 0, 3, 1, 0, BORDER_DEFAULT);
-    //convertScaleAbs(grad_x, abs_grad_x);
-	sobelFilter(unsigned char *imgOutput, unsigned char maskWidth, char *M, unsigned char *imgInput, int width, int height);
+
+	sobelFilter(sobelOutput, 3, M, imgOutput, width, height);
+
+    Mat sobel_image;
+    sobel_image.create(height,width,CV_8UC1);
+    sobel_image.data = sobelOutput;
 
     namedWindow(imageName, WINDOW_NORMAL);
     namedWindow("Gray Image Secuential", WINDOW_NORMAL);
-    //namedWindow("Sobel Image OpenCV", WINDOW_NORMAL);
+    namedWindow("Sobel Image OpenCV", WINDOW_NORMAL);
 
     imshow(imageName,image);
     imshow("Gray Image Secuential", gray_image);
-    //imshow("Sobel Image OpenCV", grad_x);
+    imshow("Sobel Image OpenCV", sobel_image);
 
     waitKey(0);
+
+    free(dataRawImage);
+    free(imgOutput);
+    free(sobelOutput);
     
     return 0;
 }
