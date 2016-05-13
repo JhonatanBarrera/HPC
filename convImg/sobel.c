@@ -12,13 +12,12 @@ using namespace cv;
 
 __global__ void img2gray(unsigned char *imgOutput, unsigned char *imgInput, int width, int height)
 {
+    int row = blockIdx.y*blockDim.y+threadIdx.y;
+    int col = blockIdx.x*blockDim.x+threadIdx.x;
 
-    for (int row = 0; row < height; row++)
-    {
-        for (int col = 0; col < width; col++)
-        {
-            imgOutput[row * width + col] = imgInput[(row * width + col) * 3 + RED] * 0.299 + imgInput[(row * width + col) * 3 + GREEN] * 0.587 + imgInput[(row * width + col) * 3 + BLUE] * 0.114;
-        }
+    if((row < height) && (col < width)){
+        imageOutput[row*width+col] = imageInput[(row*width+col)*3+RED]*0.299 + imageInput[(row*width+col)*3+GREEN]*0.587
+                                     &&+ imageInput[(row*width+col)*3+BLUE]*0.114;
     }
 }
 
@@ -34,37 +33,23 @@ __device__ unsigned char clamp(int value)
 
 __global__ void sobelGrad(unsigned char *imgOutput, int maskWidth, char *M, unsigned char *imgInput, int width, int height)
 {
-    int row;
-    int col;
+    unsigned int row = blockIdx.y*blockDim.y+threadIdx.y;
+    unsigned int col = blockIdx.x*blockDim.x+threadIdx.x;
     int Pvalue;
 
-    int N_start_point_row;
-    int N_start_point_col;
+    int N_start_point_row = row - (maskWidth/2);
+    int N_start_point_col = col - (maskWidth/2);
 
-
-    for (row = 0; row < height; row++)
-    {
-        for (col = 0; col < width; col++)
-        {
-        		Pvalue = 0;
-            N_start_point_row = row - (maskWidth/2);
-            N_start_point_col = col - (maskWidth/2);
-            for(int i = 0; i < maskWidth; i++)
-            {
-								for(int j = 0; j < maskWidth; j++ )
-								{
-								    if((N_start_point_col + j >=0 && N_start_point_col + j < width)
-								            &&(N_start_point_row + i >=0 && N_start_point_row + i < height))
-								    {
-								        Pvalue += imgInput[(N_start_point_row + i)*width+(N_start_point_col + j)] * M[i*maskWidth+j];
-								        //printf("%d Pvalue: ",Pvalue);
-								    }
-								}
-   					}
-   					imgOutput[row * width + col] = clamp(Pvalue);
-   					//printf("Pvalue: %d", clamp(Pvalue));
+    for(int i = 0; i < maskWidth; i++){
+        for(int j = 0; j < maskWidth; j++ ){
+            if((N_start_point_col + j >=0 && N_start_point_col + j < width)
+                    &&(N_start_point_row + i >=0 && N_start_point_row + i < height)){
+                Pvalue += imageInput[(N_start_point_row + i)*width+(N_start_point_col + j)] * M[i*maskWidth+j];
+            }
         }
     }
+    imageOutput[row*width+col] = clamp(Pvalue);
+   
 }
 
 __global__ void sobelFilter(unsigned char *imgSobel, unsigned char *sobelOutputX, unsigned char *sobelOutputY, int width, int height)
@@ -85,13 +70,14 @@ __global__ void sobelFilter(unsigned char *imgSobel, unsigned char *sobelOutputX
 
 int main(int argc, char **argv)
 {
-    double start, end;
+    clock_t start, end;
+    double gpu_time_used;
 
     char *imageName = argv[1];
     char h_M[] = {-1,0,1,-2,0,2,-1,0,1}, *d_M;
     char h_Mt[] = {-1,-2,-1,0,0,0,1,2,1}, *d_Mt;
     unsigned char *h_dataRawImage, *d_dataRawImage, *h_imgOutput, *d_imgOutput;
-    unsigned char *d_imgSobel, *d_sobelOutputX, *d_sobelOutputY;
+    unsigned char *h_imgSobel, *d_imgSobel, *d_sobelOutputX, *d_sobelOutputY;
     
     Mat image;
     image = imread(imageName, 1);
@@ -103,8 +89,10 @@ int main(int argc, char **argv)
     int size = sizeof(unsigned char) * width * height * image.channels();
     int sizeGray = sizeof(unsigned char) * width * height;
 
-    dataRawImage = (unsigned char*)malloc(size);
+    h_dataRawImage = (unsigned char*)malloc(size);
+    cudaMalloc((void**)&d_dataRawImage,size);
     h_imgOutput = (unsigned char*)malloc(sizeGray);
+    cudaMalloc((void**)&d_imgOutput);
 
     cudaMalloc((void**)&d_M,sizeof(char)*9);
     cudaMalloc((void**)&d_Mt,sizeof(char)*9);
@@ -126,29 +114,35 @@ int main(int argc, char **argv)
     int blockSize = 32;
     dim3 dimBlock(blockSize, blockSize, 1);
     dim3 dimGrid(ceil(width/float(blockSize)), ceil(height/float(blockSize)), 1);
-    img2gray<<<dimGrid,dimBlock>>>(d_dataRawImage, width, height, d_imgOutput);
+    
+    img2gray<<<dimGrid,dimBlock>>>(d_imgOutput, d_dataRawImage, width, height);
     cudaDeviceSynchronize();
     //img2gray(imgOutput, dataRawImage, width, height);
 
-    Mat gray_image, grad_x, abs_grad_x;
-    gray_image.create(height,width,CV_8UC1);
-    gray_image.data = imgOutput;
+    ///Mat gray_image, grad_x, abs_grad_x;
+    ///gray_image.create(height,width,CV_8UC1);
+    ///gray_image.data = imgOutput;
 
     // Gradient X
-    sobelFilter<<<dimGrid,dimBlock>>>(d_imgOutput, width, height, 3, d_M, d_sobelOutputX);
+    sobelFilter<<<dimGrid,dimBlock>>>(d_sobelOutputX, 3, d_M, d_imgOutput, width, height);
 	//sobelGrad(sobelOutputX, 3, M, imgOutput, width, height);
 		
 	// Gradient Y
-    sobelFilter<<<dimGrid,dimBlock>>>(d_imgOutput, width, height, 3, d_M, d_sobelOutputY);
+    sobelFilter<<<dimGrid,dimBlock>>>(d_sobelOutputY, 3, d_M, d_imgOutput, width, height);
 	//sobelGrad(sobelOutputY, 3, Mt, imgOutput, width, height);
 
 	// Gradient Magnitude
-    sobelFilter<<<dimGrid,dimBlock>>>(imgSobel, sobelOutputX, sobelOutputY, width, height);
+    sobelFilter<<<dimGrid,dimBlock>>>(d_imgSobel, d_sobelOutputY, d_sobelOutputY, width, height);
+    cudaMemcpy(h_imgSobel, d_imgSobel, sizeGray, cudaMemcpyDeviceToHost);
     //sobelFilter(imgSobel, sobelOutputX, sobelOutputY, width, height);
+
+    end = clock();
+
+    gpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
     Mat sobel_image;
     sobel_image.create(height,width,CV_8UC1);
-    sobel_image.data = imgSobel;
+    sobel_image.data = h_imgSobel;
 
     namedWindow(imageName, WINDOW_NORMAL);
     namedWindow("Gray Image Secuential", WINDOW_NORMAL);
@@ -160,11 +154,17 @@ int main(int argc, char **argv)
 
     waitKey(0);
 
-    free(dataRawImage);
-    free(imgOutput);
-    free(sobelOutputX);
-    free(sobelOutputY);
-    free(imgSobel);  
+    free(h_dataRawImage);
+    free(h_imgOutput);
+    cudaFree(d_dataRawImage);
+    cudaFree(d_imgOutput);
+    cudaFree(d_M);
+    cudaFree(d_Mt);
+    cudaFree(d_sobelOutputX);
+    cudaFree(d_sobelOutputY);
+    cudaFree(d_imgSobel); 
+
+    waitKey(0);
 
     return 0;
 }
