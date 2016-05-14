@@ -3,6 +3,7 @@
 #include <time.h>
 #include <cuda.h>
 #include <math.h>
+//#include "cudpp.h"
 
 using namespace cv;
 
@@ -16,8 +17,8 @@ __global__ void img2gray(unsigned char *imgOutput, unsigned char *imgInput, int 
     int col = blockIdx.x*blockDim.x+threadIdx.x;
 
     if((row < height) && (col < width)){
-        imageOutput[row*width+col] = imageInput[(row*width+col)*3+RED]*0.299 + imageInput[(row*width+col)*3+GREEN]*0.587
-                                     &&+ imageInput[(row*width+col)*3+BLUE]*0.114;
+        imgOutput[row*width+col] = imgInput[(row*width+col)*3+RED]*0.299 + imgInput[(row*width+col)*3+GREEN]*0.587
+                                     &&+ imgInput[(row*width+col)*3+BLUE]*0.114;
     }
 }
 
@@ -45,11 +46,11 @@ __global__ void sobelGrad(unsigned char *imgOutput, int maskWidth, char *M, unsi
         for(int j = 0; j < maskWidth; j++ ){
             if((N_start_point_col + j >=0 && N_start_point_col + j < width)
                     &&(N_start_point_row + i >=0 && N_start_point_row + i < height)){
-                Pvalue += imageInput[(N_start_point_row + i)*width+(N_start_point_col + j)] * M[i*maskWidth+j];
+                Pvalue += imgInput[(N_start_point_row + i)*width+(N_start_point_col + j)] * M[i*maskWidth+j];
             }
         }
     }
-    imageOutput[row*width+col] = clamp(Pvalue);
+    imgOutput[row*width+col] = clamp(Pvalue);
    
 }
 
@@ -59,7 +60,7 @@ __global__ void sobelFilter(unsigned char *imgSobel, unsigned char *sobelOutputX
     unsigned int col = blockIdx.x*blockDim.x+threadIdx.x;
 
     if((row < height) && (col < width)){
-        imgSobel[row * width + col] = (sqrt( pow(sobelOutputX[row * width + col],2) + pow(sobelOutputY[row * width + col],2)) );
+        imgSobel[row * width + col] = (__powf( (__powf(sobelOutputX[row * width + col],2) + __powf(sobelOutputY[row * width + col],2)), 0.5 ));
     }
     
 }
@@ -89,18 +90,19 @@ int main(int argc, char **argv)
     h_dataRawImage = (unsigned char*)malloc(size);
     cudaMalloc((void**)&d_dataRawImage,size);
     h_imgOutput = (unsigned char*)malloc(sizeGray);
-    cudaMalloc((void**)&d_imgOutput);
+    cudaMalloc((void**)&d_imgOutput,sizeGray);
+    cudaMalloc((void**)&d_imgSobel,sizeGray);
+    h_imgSobel = (unsigned char*)malloc(sizeGray);
 
     cudaMalloc((void**)&d_M,sizeof(char)*9);
     cudaMalloc((void**)&d_Mt,sizeof(char)*9);
     cudaMalloc((void**)&d_sobelOutputX,sizeGray);
     cudaMalloc((void**)&d_sobelOutputY,sizeGray);
-    cudaMalloc((void**)&d_imgSobel,sizeGray);
     //sobelOutputX = (unsigned char*)malloc(sizeGray);
     //sobelOutputY = (unsigned char*)malloc(sizeGray);
     //imgSobel = (unsigned char*)malloc(sizeGray);
 
-    dataRawImage = image.data;
+    h_dataRawImage = image.data;
 
     start = clock();
 
@@ -142,11 +144,11 @@ int main(int argc, char **argv)
     sobel_image.data = h_imgSobel;
 
     namedWindow(imageName, WINDOW_NORMAL);
-    namedWindow("Gray Image Secuential", WINDOW_NORMAL);
+    //namedWindow("Gray Image Secuential", WINDOW_NORMAL);
     namedWindow("Sobel Image OpenCV", WINDOW_NORMAL);
 
     imshow(imageName,image);
-    imshow("Gray Image Secuential", gray_image);
+    //imshow("Gray Image Secuential", gray_image);
     imshow("Sobel Image OpenCV", sobel_image);
 
     waitKey(0);
