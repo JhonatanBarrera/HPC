@@ -148,6 +148,8 @@ int main(int argc, char **argv)
     imshow("Sobel Image OpenCV", sobel_image);
 
     waitKey(0);
+    
+    printf("%.10f\n",gpu_time_used);
 
     free(h_dataRawImage);
     free(h_imgOutput);
