@@ -131,6 +131,7 @@ int main(int argc, char **argv)
 
     gpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
+    /*
     Mat gray_image, grad_x, abs_grad_x;
     gray_image.create(height,width,CV_8UC1);
     gray_image.data = h_imgOutput;
@@ -146,10 +147,11 @@ int main(int argc, char **argv)
     imshow(imageName,image);
     imshow("Gray Image Secuential", gray_image);
     imshow("Sobel Image OpenCV", sobel_image);
+    */
     
     printf("%.10f\n",gpu_time_used);
 
-    waitKey(0);
+    //waitKey(0);
     
     
     cudaFree(d_dataRawImage);
@@ -160,8 +162,9 @@ int main(int argc, char **argv)
     cudaFree(d_sobelOutputY);
     cudaFree(d_imgSobel);
     
-    free(h_dataRawImage);
-    free(h_imgOutput);
+    // Ocasionan un segmentation default
+    //free(h_dataRawImage);
+    //free(h_imgOutput);
 
     return 0;
 }

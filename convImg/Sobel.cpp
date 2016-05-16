@@ -83,6 +83,9 @@ void sobelFilter(unsigned char *imgSobel, unsigned char *sobelOutputX, unsigned 
 
 int main(int argc, char **argv)
 {
+    clock_t start, end;
+    double cpu_time_used;
+
     char *imageName = argv[1];
     char M[] = {-1,0,1,-2,0,2,-1,0,1};
     char Mt[] = {-1,-2,-1,0,0,0,1,2,1};
@@ -107,6 +110,8 @@ int main(int argc, char **argv)
 
     dataRawImage = image.data;
 
+    start = clock();
+
     img2gray(imgOutput, dataRawImage, width, height);
 
     Mat gray_image, grad_x, abs_grad_x;
@@ -122,6 +127,13 @@ int main(int argc, char **argv)
 	// Gradient Magnitude
     sobelFilter(imgSobel, sobelOutputX, sobelOutputY, width, height);
 
+    end = clock();
+
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+    printf("%.10f\n",cpu_time_used);
+
+    /*
     Mat sobel_image;
     sobel_image.create(height,width,CV_8UC1);
     sobel_image.data = imgSobel;
@@ -135,6 +147,7 @@ int main(int argc, char **argv)
     imshow("Sobel Image OpenCV", sobel_image);
 
     waitKey(0);
+    */
 
     free(dataRawImage);
     free(imgOutput);
