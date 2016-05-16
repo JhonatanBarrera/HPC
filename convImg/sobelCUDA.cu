@@ -146,13 +146,12 @@ int main(int argc, char **argv)
     imshow(imageName,image);
     imshow("Gray Image Secuential", gray_image);
     imshow("Sobel Image OpenCV", sobel_image);
-
-    waitKey(0);
     
     printf("%.10f\n",gpu_time_used);
 
-    free(h_dataRawImage);
-    free(h_imgOutput);
+    waitKey(0);
+    
+    
     cudaFree(d_dataRawImage);
     cudaFree(d_imgOutput);
     cudaFree(d_M);
@@ -160,6 +159,9 @@ int main(int argc, char **argv)
     cudaFree(d_sobelOutputX);
     cudaFree(d_sobelOutputY);
     cudaFree(d_imgSobel);
+    
+    free(h_dataRawImage);
+    free(h_imgOutput);
 
     return 0;
 }
