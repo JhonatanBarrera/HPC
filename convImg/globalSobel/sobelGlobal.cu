@@ -3,7 +3,6 @@
 #include <time.h>
 #include <cuda.h>
 #include <math.h>
-//#include "cudpp.h"
 
 using namespace cv;
 
