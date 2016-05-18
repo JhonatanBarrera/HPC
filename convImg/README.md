@@ -30,7 +30,7 @@ Matemáticamente, el operador utiliza dos kernels de 3×3 elementos para aplicar c
 
 En cada punto de la imagen, los resultados de las aproximaciones de los gradientes horizontal y vertical pueden ser combinados para obtener la magnitud del gradiente, mediante:
 
-![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magnitud.PNG "Magnitud.")
+![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magsobel.png "Magnitud.")
 
 ## Paralelización del Filtro de Sobel
 Para este ejercicion se han construido cuatro versiones del Filtro de Sobel, la primera corresponde a la version secuencial (Ejecutada en CPU) que normalmente se usa en este filtrado, los otros tres algoritmos corresponden a las implementaciones paralelas que han sido mejoradas gradualmente desde el uso de Memoria Global, pasando luego a declarar el kernel de convolucion como una constante en la GPU para final mente hacer uso de la tecnica de Memoria Compartida.
