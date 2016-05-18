@@ -5,32 +5,32 @@ La mayoría de las técnicas para detectar bordes emplean operadores locales basad
 ##### Operadores basadas en la primera derivada (Gradiente). 
 En el caso de funciones bidimensionales f(x,y), la derivada es un vector que apunta en la dirección de la máxima variación de f(x,y) y cuyo módulo es proporcional a dicha variación. Este vector se denomina gradiente y se define:
 
-![Gradiente](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradiente.png "Gradiente.")
+![Gradiente](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradiente.PNG "Gradiente.")
 
 En el caso bidimensional discreto, las distintas aproximaciones del operador gradiente se basan en diferencias entre los niveles de grises de la imagen. La derivada parcial fx(x,y) ( gradiente de fila GF(i,j) ) puede aproximarse por la diferencia de píxeles adyacentes de la misma fila. 
 
-![Gradiente X](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradbix.png "Gradiente X.")
+![Gradiente X](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradbix.PNG "Gradiente X.")
 
 La discretización del vector gradiente en el eje Y (GC(i,j)), será: 
 
-![Gradiente Y](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradbiy.png "Gradiente Y.")
+![Gradiente Y](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradbiy.PNG "Gradiente Y.")
 
 El gradiente de la fila GF y de columna GC en cada punto se obtienen mediante la convolución de la imagen con las máscaras HF y HC, esto es: 
 
-![Convolucion](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradientes.png "Convolucion.")
+![Convolucion](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/gradientes.PNG "Convolucion.")
 
 La magnitud y orientación del vector gradiente suele aproximarse por la expresión:
 
-![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magnitud.png "Magnitud.")
+![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magnitud.PNG "Magnitud.")
 
 ##### Operador de Sobel
 Matemáticamente, el operador utiliza dos kernels de 3×3 elementos para aplicar convolución a la imagen original para calcular aproximaciones a las derivadas, un kernel para los cambios horizontales y otro para las verticales. Si definimos 'A' como la imagen original, el resultado, que son las dos imágenes 'Gx' y 'Gy' que representan para cada punto las aproximaciones horizontal y vertical de las derivadas de intensidades, es calculado como:
 
-![Sobel](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/sobel.png "Sobel.")
+![Sobel](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/sobel.PNG "Sobel.")
 
 En cada punto de la imagen, los resultados de las aproximaciones de los gradientes horizontal y vertical pueden ser combinados para obtener la magnitud del gradiente, mediante:
 
-![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magsobel.png "Magnitud.")
+![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magsobel.PNG "Magnitud.")
 
 ## Paralelización del Filtro de Sobel
 Para este ejercicion se han construido cuatro versiones del Filtro de Sobel, la primera corresponde a la version secuencial (Ejecutada en CPU) que normalmente se usa en este filtrado, los otros tres algoritmos corresponden a las implementaciones paralelas que han sido mejoradas gradualmente desde el uso de Memoria Global, pasando luego a declarar el kernel de convolucion como una constante en la GPU para final mente hacer uso de la tecnica de Memoria Compartida.
@@ -54,10 +54,10 @@ Matriz|	T. CPU|	T. GPU|	T. GPU C| T. GPU MC
 6400x4800|	3,2182903|	0,12746205|	0,1146095|	0,1144214
 Tabla 1. Tiempo de ejecución (en segundos) para Matrices del DataSet I para cada uno de los algoritmos propuestos.
 
-![Filtro de Sobel - Tiempo Secuencial (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoSF.png "Filtro de Sobel - Tiempo Secuencial (DataSet I)")  
+![Filtro de Sobel - Tiempo Secuencial (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoSF.PNG "Filtro de Sobel - Tiempo Secuencial (DataSet I)")  
 Gráfica 1.1 Tiempo de ejecución para el algoritmo secuencial (DataSet I).
 
-![Filtro de Sobel - Tiempo Paralelo (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoPF.png "Filtro de Sobel - Tiempo Paralelo (DataSet I)")  
+![Filtro de Sobel - Tiempo Paralelo (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoPF.PNG "Filtro de Sobel - Tiempo Paralelo (DataSet I)")  
 Gráfica 1.2 Tiempo de ejecución para el algoritmo Paralelo (DataSet I).
 
 ##### Tiempo DataSet II
@@ -75,10 +75,10 @@ Matriz|	T. CPU|	T. GPU|	T. GPU C| T. GPU MC
 19843x8504|	16,9437996|	0,4805048|	0,412844|	0,6273025
 Tabla 2. Tiempo de ejecución (en segundos) para Matrices del DataSet II para cada uno de los algoritmos propuestos.
 
-![Filtro de Sobel - Tiempo Secuencial (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoSG.png "Filtro de Sobel - Tiempo Secuencial (DataSet II)")  
+![Filtro de Sobel - Tiempo Secuencial (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoSG.PNG "Filtro de Sobel - Tiempo Secuencial (DataSet II)")  
 Gráfica 2.1. Tiempo de ejecución para el algoritmo secuencial (DataSet II).
 
-![Filtro de Sobel - Tiempo Paralelo (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoPG.png "Filtro de Sobel - Tiempo Paralelo (DataSet II)")  
+![Filtro de Sobel - Tiempo Paralelo (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/tiempoPG.PNG "Filtro de Sobel - Tiempo Paralelo (DataSet II)")  
 Gráfica 2.2. Tiempo de ejecución para el algoritmo Paralelo (DataSet II).
 
 ##### Aceleración DataSet I
@@ -95,10 +95,10 @@ Matriz|	S vs G|	S vs C|	S vs MC| C vs MC
 6400x4800|	25,24900784|	28,0804846|	28,12664676|	1,001643923
 Tabla 3. Aceleración obtenida con el uso de los algoritmos paralelos respecto al secuencial en el DataSet I, la ultima columna representa la aceleración respecto a los algoritmos paralelos con uso de Kernel Constante y Memoria Compartida. 
 
-![Filtro de Sobel - Aceleración respecto a secuencial (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionPF.png "Aceleración a partir de algoritmos paralelos (DataSet I)")  
+![Filtro de Sobel - Aceleración respecto a secuencial (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionPF.PNG "Aceleración a partir de algoritmos paralelos (DataSet I)")  
 Gráfica 3.1 Aceleración. S vs G (Secuencial vs Global), S vs C (Secuencial vs Kernel Constante), S vs MC (Secuencial vs Memoria Compartida).  
 
-![Filtro de Sobel - Aceleración entre paralelos (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionCMCF.png "Aceleración entre paralelos (DataSet I)")  
+![Filtro de Sobel - Aceleración entre paralelos (DataSet I)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionCMCF.PNG "Aceleración entre paralelos (DataSet I)")  
 Gráfica 3.2. Aceleración a partir de la optimización del algoritmo con Kernel Constante, donde se hizo uso de Memoria Compartida.
 
 ##### Aceleración DataSet II
@@ -116,10 +116,10 @@ Matriz|	S vs G|	S vs C|	S vs MC| C vs MC
 19843x8504|	35,26249811|	41,04165157|	27,01057241|	0,658125864
 Tabla 4. Aceleración obtenida con el uso de los algoritmos paralelos respecto al secuencial en el DataSet II, la ultima columna representa la aceleración respecto a los algoritmos paralelos con uso de Kernel Constante y Memoria Compartida.
 
-![Filtro de Sobel - Aceleración respecto a secuencial (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionPG.png "Aceleración a partir de algoritmos paralelos (DataSet II)")  
+![Filtro de Sobel - Aceleración respecto a secuencial (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionPG.PNG "Aceleración a partir de algoritmos paralelos (DataSet II)")  
 Gráfica 4.1 Aceleración. S vs G (Secuencial vs Global), S vs C (Secuencial vs Kernel Constante), S vs MC (Secuencial vs Memoria Compartida).
 
-![Filtro de Sobel - Aceleración entre paralelos (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionCMCG.png "Aceleración entre paralelos (DataSet II)")  
+![Filtro de Sobel - Aceleración entre paralelos (DataSet II)](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/aceleracionCMCG.PNG "Aceleración entre paralelos (DataSet II)")  
 Gráfica 4.2. Aceleración a partir de la optimización del algoritmo con Kernel Constante, donde se hizo uso de Memoria Compartida.
 
 ## Conclusiones
