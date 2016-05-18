@@ -26,11 +26,11 @@ La magnitud y orientación del vector gradiente suele aproximarse por la expresió
 ##### Operador de Sobel
 Matemáticamente, el operador utiliza dos kernels de 3×3 elementos para aplicar convolución a la imagen original para calcular aproximaciones a las derivadas, un kernel para los cambios horizontales y otro para las verticales. Si definimos 'A' como la imagen original, el resultado, que son las dos imágenes 'Gx' y 'Gy' que representan para cada punto las aproximaciones horizontal y vertical de las derivadas de intensidades, es calculado como:
 
-![Sobel](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/sobel.PNG "Sobel.")
+![Sobel](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/sobel.png "Sobel.")
 
 En cada punto de la imagen, los resultados de las aproximaciones de los gradientes horizontal y vertical pueden ser combinados para obtener la magnitud del gradiente, mediante:
 
-![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magsobel.PNG "Magnitud.")
+![Magnitud](https://github.com/JhonatanBarrera/HPC/blob/master/convImg/img/magnitud.PNG "Magnitud.")
 
 ## Paralelización del Filtro de Sobel
 Para este ejercicion se han construido cuatro versiones del Filtro de Sobel, la primera corresponde a la version secuencial (Ejecutada en CPU) que normalmente se usa en este filtrado, los otros tres algoritmos corresponden a las implementaciones paralelas que han sido mejoradas gradualmente desde el uso de Memoria Global, pasando luego a declarar el kernel de convolucion como una constante en la GPU para final mente hacer uso de la tecnica de Memoria Compartida.
