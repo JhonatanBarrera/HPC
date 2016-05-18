@@ -43,3 +43,4 @@ Ejercicios propuestos.
 
 * [Suma de dos vectores.](https://github.com/JhonatanBarrera/HPC/tree/master/sumaVec "sumaVec")
 * [Multiplicacion de Matrices.](https://github.com/JhonatanBarrera/HPC/tree/master/multiMat "multiMat")
+* [Convolucion en imagenes](https://github.com/JhonatanBarrera/HPC/tree/master/convImg "convImg")
